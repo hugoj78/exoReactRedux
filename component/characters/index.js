@@ -7,13 +7,16 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import axios from 'axios';
 
 import {publicKey, timeStamp, hash} from '../../config/api';
+import Header from '../header';
 
 const Character = () => {
-  const [dataApi, setDataApi] = useState([]);
+  const [pokemon, setPokemon] = useState([]);
+  const [pokemonDetail, setPokemonDetail] = useState([]);
   const [offSet, setOffSet] = useState({number: 0, numPage: 1});
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -39,6 +42,26 @@ const Character = () => {
     }
   };
 
+  const getPokemonDetail = (item) => {
+    axios({
+      method: 'get',
+      url: item.url,
+    })
+      .then((data) => {
+        if (data) {
+          pokemonDetail.push(data.data);
+          setPokemonDetail(pokemonDetail);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const requiredPokemonByName = (name) => {
+    return pokemonDetail.find((data) => data.name === name);
+  };
+
   useEffect(() => {
     axios({
       method: 'get',
@@ -49,10 +72,11 @@ const Character = () => {
       },
     })
       .then((res) => {
-        // console.log(res);
-        setDataApi(res.data.results);
-        setTotal(res.data.count);
-        setIsLoading(false);
+        if (res) {
+          setPokemon(res.data.results);
+          setTotal(res.data.count);
+          setIsLoading(false);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -60,21 +84,35 @@ const Character = () => {
       });
   }, [offSet]);
 
-  const renderItem = ({item}) => {
+  useEffect(() => {
+    pokemon.map((item) => {
+      getPokemonDetail(item);
+    });
+  });
+
+  const renderItem = ({key, item}) => {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{item.name}</Text>
-      </View>
+      <>
+        <View style={styles.container} key={key}>
+          <TouchableOpacity activeOpacity={0.5}>
+            <Image
+              source={{
+                uri: requiredPokemonByName(item.name).sprites.front_default,
+              }}
+              style={styles.ImageIconStyle}
+            />
+            <Text style={styles.title}> {item.name} </Text>
+          </TouchableOpacity>
+        </View>
+      </>
     );
   };
 
   return (
     <>
-      <FlatList
-        data={dataApi}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      {/* <Header /> */}
+      <FlatList data={pokemon} renderItem={renderItem} />
+      {/* {console.log(pokemonDetail)} */}
     </>
   );
 };
@@ -82,22 +120,19 @@ const Character = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 24,
-    paddingRight: 24,
-    paddingBottom: 5,
-    backgroundColor: '#eaeaea',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    marginTop: 16,
-    paddingVertical: 8,
-    borderWidth: 4,
-    borderColor: '#20232a',
-    borderRadius: 6,
-    backgroundColor: '#61dafb',
-    color: '#20232a',
     textAlign: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
+    bottom: 60,
+    left: 50,
+  },
+  ImageIconStyle: {
+    width: 100,
+    height: 100,
+    right: 50,
+    // resizeMode: 'stretch',
   },
 });
 

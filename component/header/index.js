@@ -20,7 +20,7 @@ const Header = (): Node => (
     source={require('./logo.png')}
     style={styles.background}
     imageStyle={styles.logo}>
-    <Text style={styles.text}>Marvel App</Text>
+    <Text style={styles.text}>Pokedex React</Text>
   </ImageBackground>
 );
 
@@ -32,17 +32,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lighter,
   },
   logo: {
-    opacity: 0.2,
+    opacity: 0.4,
     overflow: 'visible',
     resizeMode: 'cover',
-    /*
-     * These negative margins allow the image to be offset similarly across screen sizes and component sizes.
-     *
-     * The source logo.png image is 512x512px, so as such, these margins attempt to be relative to the
-     * source image's size.
-     */
-    // marginLeft: -128,
-    // marginBottom: -192,
   },
   text: {
     fontSize: 40,

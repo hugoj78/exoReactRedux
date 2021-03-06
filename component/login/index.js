@@ -14,10 +14,6 @@ const Login = ({isToken, setIsToken, navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    console.log(formState);
-  }, [formState]);
-
   const onPress = () => {
     if (formState.username.length === 0) {
       setErrorMessage('the field username must be not empty');
