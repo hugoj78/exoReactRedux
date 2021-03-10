@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Header from '../header';
-import MMKVStorage from 'react-native-mmkv-storage';
 
 const Login = ({isToken, setIsToken, MMKV, navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});

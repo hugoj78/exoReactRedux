@@ -85,11 +85,11 @@ const ShowAllCharacter = ({
       />
       <SafeAreaView style={styles.container}>
         <View style={styles.buttonLeft}>
-          <Button title="<" onPress={decrease} />
+          <Button title="<" onPress={decrease} color="black" />
         </View>
         <Text>{offSet.numPage}</Text>
         <View style={styles.buttonRight}>
-          <Button title=">" onPress={increase} />
+          <Button title=">" onPress={increase} color="black" />
         </View>
       </SafeAreaView>
     </>
