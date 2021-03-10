@@ -10,7 +10,7 @@ const Character = ({navigation}) => {
   const [offSet, setOffSet] = useState({number: 0, numPage: 1});
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const limit = 15;
+  const limit = 5;
 
   useEffect(() => {
     axios({

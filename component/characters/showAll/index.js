@@ -22,13 +22,14 @@ const ShowAllCharacter = ({
   navigation,
 }) => {
   useEffect(() => {
-    // console.log(pokemon);
-    getPokemonDetail(pokemon);
+    console.log(pokemon);
+    getPokemonDetail();
     // console.log(pokemonDetail);
   }, [pokemon]);
 
-  const getPokemonDetail = (listPokemon) => {
-    listPokemon.map((item) => {
+  const getPokemonDetail = () => {
+    pokemon.map((item) => {
+      console.log(item.name);
       axios({
         method: 'get',
         url: item.url,
@@ -77,7 +78,7 @@ const ShowAllCharacter = ({
       <FlatList
         data={pokemonDetail}
         renderItem={renderItem}
-        keyExtractor={(item, index) => console.log(item.id)}
+        keyExtractor={(item) => item.id.toString()}
       />
       <SafeAreaView style={styles.container}>
         <View style={styles.buttonLeft}>
