@@ -5,7 +5,17 @@ const CharacterShowDetail = ({pokemon}) => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.title}> {console.log(pokemon)} </Text>
+        {pokemon ? (
+          <>
+            <Image
+              source={{
+                uri: pokemon.sprites.front_default,
+              }}
+              style={styles.ImageIconStyle}
+            />
+            <Text style={styles.title}> {pokemon.name} </Text>
+          </>
+        ) : null}
       </View>
     </>
   );
@@ -19,14 +29,10 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    bottom: 60,
-    left: 50,
   },
   ImageIconStyle: {
-    width: 100,
-    height: 100,
-    right: 50,
-    // resizeMode: 'stretch',
+    width: 300,
+    height: 300,
   },
 });
 

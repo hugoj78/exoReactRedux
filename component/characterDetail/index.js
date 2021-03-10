@@ -5,15 +5,15 @@ import axios from 'axios';
 import CharacterShowDetail from './showDetail';
 
 const CharacterDetail = ({route}) => {
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemon, setPokemon] = useState();
 
   useEffect(() => {
     axios({
       method: 'get',
       url: `https://pokeapi.co/api/v2/pokemon/${route.params.id}`,
     })
-      .then((data) => {
-        setPokemon(data.data);
+      .then((res) => {
+        setPokemon(res.data);
       })
       .catch((err) => {
         console.log(err);
