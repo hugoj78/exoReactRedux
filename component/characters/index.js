@@ -4,7 +4,7 @@ import axios from 'axios';
 import {publicKey, timeStamp, hash} from '../../config/api';
 import ShowAllCharacter from './showAll';
 
-const Character = () => {
+const Character = ({navigation}) => {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonDetail, setPokemonDetail] = useState([]);
   const [offSet, setOffSet] = useState({number: 0, numPage: 1});
@@ -42,6 +42,7 @@ const Character = () => {
         total={total}
         pokemonDetail={pokemonDetail}
         setPokemonDetail={setPokemonDetail}
+        navigation={navigation}
       />
     </>
   );

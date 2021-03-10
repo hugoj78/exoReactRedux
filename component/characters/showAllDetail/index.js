@@ -1,19 +1,22 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 
-const ShowAllCharacterDetail = (pokemonDetail) => {
+const ShowAllCharacterDetail = ({pokemonDetail, navigation}) => {
+  const onPress = () => {
+    navigation.push('Detail', {id: pokemonDetail.id});
+  };
+
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
           <Image
             source={{
-              uri: pokemonDetail.pokemonDetail.sprites.front_default,
+              uri: pokemonDetail.sprites.front_default,
             }}
             style={styles.ImageIconStyle}
           />
-          <Text style={styles.title}> {pokemonDetail.pokemonDetail.name} </Text>
-          {/* {console.log(pokemonDetail.pokemonDetail.name)} */}
+          <Text style={styles.title}> {pokemonDetail.name} </Text>
         </TouchableOpacity>
       </View>
     </>

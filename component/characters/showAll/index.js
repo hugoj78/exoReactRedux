@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   FlatList,
   StyleSheet,
   Button,
   Text,
-  Alert,
   View,
   SafeAreaView,
 } from 'react-native';
@@ -20,6 +19,7 @@ const ShowAllCharacter = ({
   total,
   pokemonDetail,
   setPokemonDetail,
+  navigation,
 }) => {
   useEffect(() => {
     // console.log(pokemon);
@@ -67,7 +67,7 @@ const ShowAllCharacter = ({
   const renderItem = ({item}) => {
     return (
       <>
-        <ShowAllCharacterDetail pokemonDetail={item} />
+        <ShowAllCharacterDetail pokemonDetail={item} navigation={navigation} />
       </>
     );
   };

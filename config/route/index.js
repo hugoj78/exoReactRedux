@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from '../../component/login';
 import Character from '../../component/characters';
+import CharacterDetail from '../../component/characterDetail';
 
 import MMKVStorage from 'react-native-mmkv-storage';
 
@@ -27,6 +28,13 @@ const Route = () => {
             options={{
               title: 'Character',
               headerLeft: '',
+            }}
+          />
+          <Stack.Screen
+            name="Detail"
+            component={CharacterDetail}
+            options={{
+              title: 'Character Detail',
             }}
           />
         </Stack.Navigator>
