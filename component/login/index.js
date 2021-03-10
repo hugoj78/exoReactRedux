@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {useEffect} from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -9,10 +9,12 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Header from '../header';
+import MMKVStorage from 'react-native-mmkv-storage';
 
-const Login = ({isToken, setIsToken, navigation}) => {
+const Login = ({isToken, setIsToken, MMKV, navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onPress = () => {
     if (formState.username.length === 0) {
@@ -24,6 +26,8 @@ const Login = ({isToken, setIsToken, navigation}) => {
       return;
     }
 
+    setIsLoading(true);
+
     axios({
       method: 'post',
       url: 'https://easy-login-api.herokuapp.com/users/login',
@@ -33,9 +37,9 @@ const Login = ({isToken, setIsToken, navigation}) => {
       },
     })
       .then((res) => {
-        //MMKV.setStringAsync('token', res.headers['x-access-token']);
+        MMKV.setStringAsync('token', res.headers['x-access-token']);
         setIsToken(res.headers['x-access-token']);
-        // CHANGER DE PAGE
+        setIsLoading(false);
         navigation.push('Home');
       })
       .catch((err) => {
@@ -44,34 +48,42 @@ const Login = ({isToken, setIsToken, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <Text>Username :</Text>
-      <TextInput
-        style={styles.input}
-        // onChange={(e) => setFormState({...formState, username: e.target.value})}
-        onChangeText={(username) =>
-          setFormState({...formState, username: username})
-        }
-        defaultValue={formState.username}
-        placeholder="Username"
-      />
-      <Text>Password :</Text>
-      <TextInput
-        style={styles.input}
-        autoCompleteType="password"
-        secureTextEntry={true}
-        onChangeText={(password) =>
-          setFormState({...formState, password: password})
-        }
-        defaultValue={formState.password}
-        placeholder="Password"
-      />
-      <Text>{errorMessage}</Text>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text>Log in</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      {!isLoading ? (
+        <View style={styles.container}>
+          <Header />
+          <Text>Username :</Text>
+          <TextInput
+            style={styles.input}
+            // onChange={(e) => setFormState({...formState, username: e.target.value})}
+            onChangeText={(username) =>
+              setFormState({...formState, username: username})
+            }
+            defaultValue={formState.username}
+            placeholder="Username"
+          />
+          <Text>Password :</Text>
+          <TextInput
+            style={styles.input}
+            autoCompleteType="password"
+            secureTextEntry={true}
+            onChangeText={(password) =>
+              setFormState({...formState, password: password})
+            }
+            defaultValue={formState.password}
+            placeholder="Password"
+          />
+          <Text>{errorMessage}</Text>
+          <TouchableOpacity style={styles.button} onPress={onPress}>
+            <Text>Log in</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
+    </>
   );
 };
 
@@ -94,5 +106,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 10,
   },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
 });
+
 export default Login;

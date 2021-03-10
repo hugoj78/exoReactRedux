@@ -11,32 +11,49 @@ import MMKVStorage from 'react-native-mmkv-storage';
 const Route = () => {
   const Stack = createStackNavigator();
   const [isToken, setIsToken] = useState('');
+  const MMKV = new MMKVStorage.Loader().initialize();
 
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={(props) => (
-              <Login isToken={isToken} setIsToken={setIsToken} {...props} />
-            )}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Character}
-            options={{
-              title: 'Character',
-              headerLeft: '',
-            }}
-          />
-          <Stack.Screen
-            name="Detail"
-            component={CharacterDetail}
-            options={{
-              title: 'Character Detail',
-            }}
-          />
+          {!isToken ? (
+            <Stack.Screen
+              name="Login"
+              component={(props) => (
+                <Login
+                  isToken={isToken}
+                  setIsToken={setIsToken}
+                  MMKV={MMKV}
+                  {...props}
+                />
+              )}
+            />
+          ) : (
+            <>
+              <Stack.Screen
+                name="Home"
+                component={Character}
+                options={{
+                  title: 'Character',
+                  headerLeft: '',
+                }}
+              />
+              <Stack.Screen
+                name="Detail"
+                component={(props) => (
+                  <CharacterDetail
+                    setIsToken={setIsToken}
+                    MMKV={MMKV}
+                    {...props}
+                  />
+                )}
+                options={{
+                  title: 'Character Detail',
+                }}
+              />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </>

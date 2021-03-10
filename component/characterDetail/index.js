@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import CharacterShowDetail from './showDetail';
 
-const CharacterDetail = ({route}) => {
+const CharacterDetail = ({setIsToken, MMKV, route}) => {
   const [pokemon, setPokemon] = useState();
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {StyleSheet, ActivityIndicator, View} from 'react-native';
 
-import {publicKey, timeStamp, hash} from '../../config/api';
 import ShowAllCharacter from './showAll';
 
 const Character = ({navigation}) => {
@@ -34,18 +34,37 @@ const Character = ({navigation}) => {
 
   return (
     <>
-      <ShowAllCharacter
-        pokemon={pokemon}
-        offSet={offSet}
-        setOffSet={setOffSet}
-        limit={limit}
-        total={total}
-        pokemonDetail={pokemonDetail}
-        setPokemonDetail={setPokemonDetail}
-        navigation={navigation}
-      />
+      {!isLoading ? (
+        <ShowAllCharacter
+          pokemon={pokemon}
+          offSet={offSet}
+          setOffSet={setOffSet}
+          limit={limit}
+          total={total}
+          pokemonDetail={pokemonDetail}
+          setPokemonDetail={setPokemonDetail}
+          setIsLoading={setIsLoading}
+          navigation={navigation}
+        />
+      ) : (
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+});
 
 export default Character;

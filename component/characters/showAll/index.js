@@ -19,17 +19,18 @@ const ShowAllCharacter = ({
   total,
   pokemonDetail,
   setPokemonDetail,
+  setIsLoading,
   navigation,
 }) => {
   useEffect(() => {
-    console.log(pokemon);
+    // console.log(pokemon);
     getPokemonDetail();
     // console.log(pokemonDetail);
   }, [pokemon]);
 
   const getPokemonDetail = () => {
     pokemon.map((item) => {
-      console.log(item.name);
+    //   console.log(item.name);
       axios({
         method: 'get',
         url: item.url,
@@ -45,6 +46,7 @@ const ShowAllCharacter = ({
 
   const decrease = () => {
     if (offSet.numPage > 1) {
+      setIsLoading(true);
       setPokemonDetail([]);
       setOffSet({
         ...offSet,
@@ -56,6 +58,7 @@ const ShowAllCharacter = ({
 
   const increase = () => {
     if (offSet.numPage < total / limit) {
+      setIsLoading(true);
       setPokemonDetail([]);
       setOffSet({
         ...offSet,
