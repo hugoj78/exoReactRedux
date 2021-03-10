@@ -77,7 +77,7 @@ const ShowAllCharacter = ({
       <FlatList
         data={pokemonDetail}
         renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => console.log(item.id)}
       />
       <SafeAreaView style={styles.container}>
         <View style={styles.buttonLeft}>

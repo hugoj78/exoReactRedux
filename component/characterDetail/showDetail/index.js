@@ -13,7 +13,21 @@ const CharacterShowDetail = ({pokemon}) => {
               }}
               style={styles.ImageIconStyle}
             />
-            <Text style={styles.title}> {pokemon.name} </Text>
+            <Image
+              source={{
+                uri: pokemon.sprites.back_default,
+              }}
+              style={styles.ImageIconStyle}
+            />
+            <Text style={styles.title}> Name : {pokemon.name} </Text>
+            <Text style={styles.title}> Height : {pokemon.height} </Text>
+            <Text style={styles.title}> Weight : {pokemon.weight} </Text>
+            <Text style={styles.title}>
+              Type :{' '}
+              {pokemon.types.map(
+                (pokemonType) => '- ' + pokemonType.type.name + '\n',
+              )}
+            </Text>
           </>
         ) : null}
       </View>
@@ -31,8 +45,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ImageIconStyle: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
   },
 });
 
