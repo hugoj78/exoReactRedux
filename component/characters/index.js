@@ -6,6 +6,7 @@ import ShowAllCharacter from './showAll';
 
 const Character = () => {
   const [pokemon, setPokemon] = useState([]);
+  const [pokemonDetail, setPokemonDetail] = useState([]);
   const [offSet, setOffSet] = useState({number: 0, numPage: 1});
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -39,6 +40,8 @@ const Character = () => {
         setOffSet={setOffSet}
         limit={limit}
         total={total}
+        pokemonDetail={pokemonDetail}
+        setPokemonDetail={setPokemonDetail}
       />
     </>
   );

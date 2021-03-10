@@ -12,12 +12,18 @@ import axios from 'axios';
 
 import ShowAllCharacterDetail from '../showAllDetail';
 
-const ShowAllCharacter = ({pokemon, offSet, setOffSet, limit, total}) => {
-  const [pokemonDetail, setPokemonDetail] = useState([]);
-
+const ShowAllCharacter = ({
+  pokemon,
+  offSet,
+  setOffSet,
+  limit,
+  total,
+  pokemonDetail,
+  setPokemonDetail,
+}) => {
   useEffect(() => {
     // console.log(pokemon);
-    getPokemonDetail(pokemon.pokemon);
+    getPokemonDetail(pokemon);
     // console.log(pokemonDetail);
   }, [pokemon]);
 
@@ -38,6 +44,7 @@ const ShowAllCharacter = ({pokemon, offSet, setOffSet, limit, total}) => {
 
   const decrease = () => {
     if (offSet.numPage > 1) {
+      setPokemonDetail([]);
       setOffSet({
         ...offSet,
         number: offSet.number - limit,
@@ -48,6 +55,7 @@ const ShowAllCharacter = ({pokemon, offSet, setOffSet, limit, total}) => {
 
   const increase = () => {
     if (offSet.numPage < total / limit) {
+      setPokemonDetail([]);
       setOffSet({
         ...offSet,
         number: offSet.number + limit,
