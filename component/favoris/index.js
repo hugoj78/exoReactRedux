@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   vertical: {
-    top: 200,
+    top: 380,
   },
 });
 

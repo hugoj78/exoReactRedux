@@ -6,9 +6,9 @@ import {
   Text,
   View,
   TextInput,
+  ImageBackground,
 } from 'react-native';
 import axios from 'axios';
-import Header from '../header';
 import {useDispatch} from 'react-redux';
 import {incrementToken} from '../../actions/token';
 import {incrementUser} from '../../actions/user';
@@ -57,33 +57,40 @@ const Login = ({navigation}) => {
   return (
     <>
       {!isLoading ? (
-        <View style={styles.container}>
-          <Header />
-          <Text>Username :</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={(username) =>
-              setFormState({...formState, username: username})
-            }
-            defaultValue={formState.username}
-            placeholder="Username"
-          />
-          <Text>Password :</Text>
-          <TextInput
-            style={styles.input}
-            autoCompleteType="password"
-            secureTextEntry={true}
-            onChangeText={(password) =>
-              setFormState({...formState, password: password})
-            }
-            defaultValue={formState.password}
-            placeholder="Password"
-          />
-          <Text>{errorMessage}</Text>
-          <TouchableOpacity style={styles.button} onPress={onPress}>
-            <Text>Log in</Text>
-          </TouchableOpacity>
-        </View>
+        <>
+          <View style={styles.container}>
+            <ImageBackground
+              accessibilityRole={'image'}
+              source={require('./logo.png')}
+              style={styles.background}
+              imageStyle={styles.logo}
+            />
+            <Text>Username :</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(username) =>
+                setFormState({...formState, username: username})
+              }
+              defaultValue={formState.username}
+              placeholder="Username"
+            />
+            <Text>Password :</Text>
+            <TextInput
+              style={styles.input}
+              autoCompleteType="password"
+              secureTextEntry={true}
+              onChangeText={(password) =>
+                setFormState({...formState, password: password})
+              }
+              defaultValue={formState.password}
+              placeholder="Password"
+            />
+            <Text>{errorMessage}</Text>
+            <TouchableOpacity style={styles.button} onPress={onPress}>
+              <Text>Log in</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       ) : (
         <View style={[styles.container, styles.horizontal]}>
           <ActivityIndicator size="large" color="#0000ff" />
@@ -95,7 +102,7 @@ const Login = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -116,6 +123,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
+  },
+  background: {
+    paddingBottom: 40,
+    paddingTop: 96,
+    paddingHorizontal: 32,
+  },
+  logo: {
+    opacity: 0.4,
+    overflow: 'visible',
+    resizeMode: 'cover',
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: 'black',
   },
 });
 
