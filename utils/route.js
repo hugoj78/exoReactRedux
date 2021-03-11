@@ -1,23 +1,24 @@
 import React from 'react';
 import {Button} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const PrivateRoute = ({
   NavigationContainer,
   Stack,
-  isToken,
-  setIsToken,
   Login,
   Pokemon,
   PokemonDetail,
   Profil,
 }) => {
+  const tokenState = useSelector((state) => state.token.tokenValue);
+
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator>
-          {!isToken ? (
+          {!tokenState ? (
             <Stack.Screen name="Login">
-              {(props) => <Login {...props} setIsToken={setIsToken} />}
+              {(props) => <Login {...props} />}
             </Stack.Screen>
           ) : (
             <>
@@ -41,14 +42,10 @@ const PrivateRoute = ({
                 options={{
                   title: 'Pokemon Detail',
                 }}>
-                {(props) => (
-                  <PokemonDetail {...props} setIsToken={setIsToken} />
-                )}
+                {(props) => <PokemonDetail {...props} />}
               </Stack.Screen>
 
-              <Stack.Screen name="Profil">
-                {() => <Profil setIsToken={setIsToken} />}
-              </Stack.Screen>
+              <Stack.Screen name="Profil">{() => <Profil />}</Stack.Screen>
             </>
           )}
         </Stack.Navigator>

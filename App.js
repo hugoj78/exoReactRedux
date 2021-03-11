@@ -10,7 +10,7 @@ import React from 'react';
 
 import Route from './config/route';
 import {Provider} from 'react-redux';
-import {store} from './config/store';
+import {store} from './config/store/store';
 
 const App: () => React$Node = () => {
   return (

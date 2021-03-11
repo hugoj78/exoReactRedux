@@ -9,11 +9,16 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Header from '../header';
+import {useDispatch} from 'react-redux';
+import {incrementToken} from '../../actions/token';
+import {incrementUser} from '../../actions/user';
 
-const Login = ({setIsToken, navigation}) => {
+const Login = ({navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const onPress = () => {
     if (formState.username.length === 0) {
@@ -36,7 +41,8 @@ const Login = ({setIsToken, navigation}) => {
       },
     })
       .then((res) => {
-        setIsToken(res.headers['x-access-token']);
+        dispatch(incrementToken(res.headers['x-access-token']));
+        dispatch(incrementUser(formState.username));
         setIsLoading(false);
         navigation.push('Home');
       })

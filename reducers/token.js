@@ -1,13 +1,13 @@
 import {INCREMENT_TOKEN} from '../actions/token';
 
 const initialState = {
-  token: '',
+  tokenValue: '',
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT_TOKEN:
-      return {...state, token: state.token};
+      return {...state, tokenValue: action.value};
     default:
       return state;
   }

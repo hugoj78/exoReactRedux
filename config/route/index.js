@@ -11,15 +11,12 @@ import PrivateRoute from '../../utils/route';
 
 const Route = () => {
   const Stack = createStackNavigator();
-  const [isToken, setIsToken] = useState('');
 
   return (
     <>
       <PrivateRoute
         NavigationContainer={NavigationContainer}
         Stack={Stack}
-        isToken={isToken}
-        setIsToken={setIsToken}
         Login={Login}
         Pokemon={Pokemon}
         PokemonDetail={PokemonDetail}

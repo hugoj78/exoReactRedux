@@ -12,7 +12,8 @@ const DisplayPokemon = ({pokemonDetail, navigation}) => {
         <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
           <Image
             source={{
-              uri: pokemonDetail.sprites.front_default,
+              uri:
+                pokemonDetail.sprites.other['official-artwork'].front_default,
             }}
             style={styles.ImageIconStyle}
           />

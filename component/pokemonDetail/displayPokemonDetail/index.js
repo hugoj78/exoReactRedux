@@ -1,9 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {StyleSheet, Text, View, Image, Switch} from 'react-native';
 
+import {useDispatch} from 'react-redux';
+import {addFavoris, deleteFavoris, isFavoris} from '../../../actions/favoris';
+
 const DisplayPokemonDetail = ({pokemon}) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const dispatch = useDispatch();
+  const [isEnabled, setIsEnabled] = useState();
+
+  const toggleSwitch = () =>
+    isEnabled && pokemon ? deleteFav(pokemon?.id) : addFav(pokemon?.id);
+
+  const deleteFav = (id) => {
+    dispatch(deleteFavoris(id));
+    setIsEnabled(false);
+  };
+
+  const addFav = (id) => {
+    dispatch(addFavoris(id));
+    setIsEnabled(true);
+  };
+
+  useEffect(() => {
+    setIsEnabled(dispatch(isFavoris(pokemon?.id)));
+  }, [dispatch, pokemon]);
 
   return (
     <>
@@ -12,13 +32,7 @@ const DisplayPokemonDetail = ({pokemon}) => {
           <>
             <Image
               source={{
-                uri: pokemon.sprites.front_default,
-              }}
-              style={styles.ImageIconStyle}
-            />
-            <Image
-              source={{
-                uri: pokemon.sprites.back_default,
+                uri: pokemon.sprites.other['official-artwork'].front_default,
               }}
               style={styles.ImageIconStyle}
             />
