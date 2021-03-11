@@ -1,13 +1,13 @@
-const customDarkTheme = {
+const CustomDarkTheme = {
   dark: true,
   colors: {
-    primary: 'black',
+    primary: '#fff',
     background: 'black',
     card: 'black',
-    text: 'white',
-    border: 'black',
-    notification: 'black',
+    text: '#fff',
+    border: '#fff',
+    notification: '#fff',
   },
 };
 
-export default customDarkTheme;
+export {CustomDarkTheme};

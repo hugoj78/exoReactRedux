@@ -3,7 +3,7 @@ import {Button} from 'react-native';
 import {useSelector} from 'react-redux';
 import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
 import {DefaultTheme} from '@react-navigation/native';
-// import {customDarkTheme} from '../config/theme/theme';
+import {CustomDarkTheme} from '../config/theme/theme';
 
 const PrivateRoute = ({
   NavigationContainer,
@@ -16,17 +16,18 @@ const PrivateRoute = ({
 }) => {
   const tokenState = useSelector((state) => state.token.tokenValue);
   const scheme = useColorScheme();
-  const CustomDarkTheme = {
-    dark: true,
-    colors: {
-      primary: '#fff',
-      background: 'black',
-      card: 'black',
-      text: '#fff',
-      border: '#fff',
-      notification: '#fff',
-    },
-  };
+  // const CustomDarkTheme = {
+  //   dark: true,
+  //   colors: {
+  //     primary: '#fff',
+  //     background: 'black',
+  //     card: 'black',
+  //     text: '#fff',
+  //     border: '#fff',
+  //     notification: '#fff',
+  //   },
+  // };
+  console.log(CustomDarkTheme);
   return (
     <>
       <AppearanceProvider>
