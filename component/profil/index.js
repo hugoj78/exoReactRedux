@@ -4,9 +4,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import {deleteToken} from '../../actions/token';
 import {deleteUser} from '../../actions/user';
 import {resetFavoris} from '../../actions/favoris';
+import {useTheme} from '@react-navigation/native';
 
 const Profil = ({navigation}) => {
   const dispatch = useDispatch();
+  const {colors} = useTheme();
+
   const disconnect = () => {
     dispatch(deleteToken());
     dispatch(deleteUser());
@@ -22,7 +25,7 @@ const Profil = ({navigation}) => {
       <View style={styles.container}>
         <Image source={require('./user.png')} style={styles.profilPicture} />
         <View style={styles.title}>
-          <Text style={styles.text}>
+          <Text style={[styles.text, {color: colors.text}]}>
             {useSelector((state) => state.user.userValue)}{' '}
           </Text>
         </View>

@@ -10,7 +10,7 @@ import Favoris from '../../component/favoris';
 
 import PrivateRoute from '../../utils/route';
 
-const Route = () => {
+const Route = (props) => {
   const Stack = createStackNavigator();
 
   return (
@@ -23,6 +23,7 @@ const Route = () => {
         PokemonDetail={PokemonDetail}
         Profil={Profil}
         Favoris={Favoris}
+        {...props}
       />
     </>
   );

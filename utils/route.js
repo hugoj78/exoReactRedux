@@ -1,6 +1,9 @@
 import React from 'react';
 import {Button} from 'react-native';
 import {useSelector} from 'react-redux';
+import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
+import {DefaultTheme} from '@react-navigation/native';
+// import {customDarkTheme} from '../config/theme/theme';
 
 const PrivateRoute = ({
   NavigationContainer,
@@ -12,51 +15,55 @@ const PrivateRoute = ({
   Favoris,
 }) => {
   const tokenState = useSelector((state) => state.token.tokenValue);
-
+  const scheme = useColorScheme();
+  const CustomDarkTheme = {
+    dark: true,
+    colors: {
+      primary: '#fff',
+      background: 'black',
+      card: 'black',
+      text: '#fff',
+      border: '#fff',
+      notification: '#fff',
+    },
+  };
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {!tokenState ? (
-            <Stack.Screen name="Login">
-              {(props) => <Login {...props} />}
-            </Stack.Screen>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Home"
-                component={Pokemon}
-                options={({navigation}) => ({
-                  title: 'Pokemon',
-                  headerLeft: '',
-                  headerRight: () => (
-                    <Button
-                      onPress={() => navigation.navigate('Profil')}
-                      title="Profil"
-                      color="black"
-                    />
-                  ),
-                })}
-              />
-              <Stack.Screen
-                name="Detail"
-                options={{
-                  title: 'Pokemon Detail',
-                }}>
-                {(props) => <PokemonDetail {...props} />}
+      <AppearanceProvider>
+        <NavigationContainer
+          theme={scheme === 'dark' ? CustomDarkTheme : DefaultTheme}>
+          <Stack.Navigator>
+            {!tokenState ? (
+              <Stack.Screen name="Login">
+                {(props) => <Login {...props} />}
               </Stack.Screen>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="Home"
+                  component={Pokemon}
+                  options={({navigation}) => ({
+                    title: 'Pokemon',
+                    headerLeft: '',
+                    headerRight: () => (
+                      <Button
+                        onPress={() => navigation.navigate('Profil')}
+                        title="Profil"
+                      />
+                    ),
+                  })}
+                />
 
-              <Stack.Screen name="Profil">
-                {(props) => <Profil {...props} />}
-              </Stack.Screen>
+                <Stack.Screen name="Pokemon Detail" component={PokemonDetail} />
 
-              <Stack.Screen name="Favoris">
-                {(props) => <Favoris {...props} />}
-              </Stack.Screen>
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+                <Stack.Screen name="Profil" component={Profil} />
+
+                <Stack.Screen name="Favoris" component={Favoris} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AppearanceProvider>
     </>
   );
 };

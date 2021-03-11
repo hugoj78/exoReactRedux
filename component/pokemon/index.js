@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {StyleSheet, ActivityIndicator, View, Button} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 import GetPokemon from './getPokemon';
 
@@ -11,6 +12,7 @@ const Character = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const limit = 15;
+  const {colors} = useTheme();
 
   useEffect(() => {
     axios({
@@ -38,7 +40,7 @@ const Character = ({navigation}) => {
   if (isLoading) {
     return (
       <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#53B7D2" />
       </View>
     );
   }
@@ -46,20 +48,27 @@ const Character = ({navigation}) => {
   return (
     <>
       {pokemon[0] ? (
-        <GetPokemon
-          pokemon={pokemon}
-          offSet={offSet}
-          setOffSet={setOffSet}
-          limit={limit}
-          total={total}
-          pokemonDetail={pokemonDetail}
-          setPokemonDetail={setPokemonDetail}
-          setIsLoading={setIsLoading}
-          navigation={navigation}
-        />
+        <View style={styles.container}>
+          <GetPokemon
+            pokemon={pokemon}
+            offSet={offSet}
+            setOffSet={setOffSet}
+            limit={limit}
+            total={total}
+            pokemonDetail={pokemonDetail}
+            setPokemonDetail={setPokemonDetail}
+            setIsLoading={setIsLoading}
+            colors={colors}
+            navigation={navigation}
+          />
+        </View>
       ) : (
         <View style={[styles.container, styles.horizontal]}>
-          <Button title="Retry" onPress={() => console.log('zizi')} />
+          <Button
+            title="Retry"
+            color={{color: colors.text}}
+            onPress={() => console.log('zizi')}
+          />
         </View>
       )}
     </>

@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {store} from '../../config/store/store';
+import {useTheme} from '@react-navigation/native';
 
 import DisplayFavoris from './displayFavoris';
 
 const GetFavoris = ({navigation}) => {
   const [pokFav, setPokFav] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const {colors} = useTheme();
 
   useEffect(() => {
     const favList = store.getState().favoris.listFavoris;
@@ -46,7 +48,7 @@ const GetFavoris = ({navigation}) => {
   if (isLoading) {
     return (
       <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#53B7D2" />
       </View>
     );
   }
@@ -54,7 +56,11 @@ const GetFavoris = ({navigation}) => {
   const renderItem = ({item}) => {
     return (
       <>
-        <DisplayFavoris pokemonDetail={item} navigation={navigation} />
+        <DisplayFavoris
+          pokemonDetail={item}
+          colors={colors}
+          navigation={navigation}
+        />
       </>
     );
   };
@@ -69,7 +75,9 @@ const GetFavoris = ({navigation}) => {
         />
       ) : (
         <View style={(styles.container, styles.horizontal)}>
-          <Text style={styles.vertical}>Pas de favoris</Text>
+          <Text style={[styles.vertical, {color: colors.text}]}>
+            Pas de favoris
+          </Text>
         </View>
       )}
     </>

@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Image, Switch} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {addFavoris, deleteFavoris, isFavoris} from '../../../actions/favoris';
 
-const DisplayPokemonDetail = ({pokemon}) => {
+const DisplayPokemonDetail = ({pokemon, colors}) => {
   const dispatch = useDispatch();
   const [isEnabled, setIsEnabled] = useState();
 
@@ -36,15 +36,27 @@ const DisplayPokemonDetail = ({pokemon}) => {
               }}
               style={styles.ImageIconStyle}
             />
-            <Text style={styles.title}> Name : {pokemon.name} </Text>
-            <Text style={styles.title}> Height : {pokemon.height} </Text>
-            <Text style={styles.title}> Weight : {pokemon.weight} </Text>
-            <Text style={styles.title}>
-              Type :{'\n'}
-              {pokemon.types.map(
-                (pokemonType) => '- ' + pokemonType.type.name + '\n',
-              )}
+            <Text style={[styles.bigTitle, {color: colors.text}]}>
+              {pokemon.name}
             </Text>
+            <View>
+              <Text style={[styles.title, {color: colors.text}]}>
+                Height : {pokemon.height}
+              </Text>
+              <Text style={[styles.title, {color: colors.text}]}>
+                Weight : {pokemon.weight}
+              </Text>
+              <Text style={[styles.title, {color: colors.text}]}>
+                Type :{''}
+                {pokemon.types.map((pokemonType) => {
+                  if (pokemon.types.indexOf(pokemonType) === 1) {
+                    return `            - ${pokemonType.type.name}\n`;
+                  } else {
+                    return ` - ${pokemonType.type.name}\n`;
+                  }
+                })}
+              </Text>
+            </View>
             <Switch
               trackColor={{false: '#767577', true: '#53B7D2'}}
               thumbColor={'#f4f3f4'}
@@ -65,12 +77,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textContainer: {
+    alignItems: 'baseline',
+  },
+  bigTitle: {
+    fontSize: 40,
+  },
   title: {
-    textAlign: 'center',
+    fontSize: 20,
   },
   ImageIconStyle: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
   },
 });
 

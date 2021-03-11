@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 
-const DisplayFavoris = ({pokemonDetail, navigation}) => {
+const DisplayFavoris = ({pokemonDetail, colors, navigation}) => {
   const onPress = () => {
-    navigation.push('Detail', {id: pokemonDetail.id});
+    navigation.navigate('Pokemon Detail', {id: pokemonDetail.id});
   };
 
   return (
@@ -17,7 +17,9 @@ const DisplayFavoris = ({pokemonDetail, navigation}) => {
             }}
             style={styles.ImageIconStyle}
           />
-          <Text style={styles.title}> {pokemonDetail.name} </Text>
+          <Text style={[styles.title, {color: colors.text}]}>
+            {pokemonDetail.name}
+          </Text>
         </TouchableOpacity>
       </View>
     </>
@@ -32,13 +34,14 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    bottom: 60,
-    left: 50,
+    bottom: 70,
+    left: 60,
+    fontSize: 25,
   },
   ImageIconStyle: {
-    width: 100,
-    height: 100,
-    right: 50,
+    width: 120,
+    height: 120,
+    right: 70,
   },
 });
 

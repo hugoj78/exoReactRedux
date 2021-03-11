@@ -2,12 +2,14 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import axios from 'axios';
+import {useTheme} from '@react-navigation/native';
 
 import DisplayPokemonDetail from './displayPokemonDetail';
 
 const PokemonDetail = ({setIsToken, route}) => {
   const [pokemon, setPokemon] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const {colors} = useTheme();
 
   useEffect(() => {
     axios({
@@ -18,7 +20,7 @@ const PokemonDetail = ({setIsToken, route}) => {
         setTimeout(() => {
           setPokemon(res.data);
           setIsLoading(false);
-        }, 500);
+        }, 700);
       })
       .catch((err) => {
         console.log(err);
@@ -28,10 +30,10 @@ const PokemonDetail = ({setIsToken, route}) => {
   return (
     <>
       {!isLoading ? (
-        <DisplayPokemonDetail pokemon={pokemon} />
+        <DisplayPokemonDetail pokemon={pokemon} colors={colors} />
       ) : (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#53B7D2" />
         </View>
       )}
     </>

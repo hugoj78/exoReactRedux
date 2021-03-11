@@ -20,6 +20,7 @@ const GetPokemon = ({
   pokemonDetail,
   setPokemonDetail,
   setIsLoading,
+  colors,
   navigation,
 }) => {
   useEffect(() => {
@@ -72,7 +73,11 @@ const GetPokemon = ({
   const renderItem = ({item}) => {
     return (
       <>
-        <DisplayPokemon pokemonDetail={item} navigation={navigation} />
+        <DisplayPokemon
+          pokemonDetail={item}
+          colors={colors}
+          navigation={navigation}
+        />
       </>
     );
   };
@@ -86,11 +91,11 @@ const GetPokemon = ({
       />
       <SafeAreaView style={styles.container}>
         <View style={styles.buttonLeft}>
-          <Button title="<" onPress={decrease} color="black" />
+          <Button title="<" color={colors.text} onPress={decrease} />
         </View>
-        <Text>{offSet.numPage}</Text>
+        <Text style={{color: colors.text}}>{offSet.numPage}</Text>
         <View style={styles.buttonRight}>
-          <Button title=">" onPress={increase} color="black" />
+          <Button title=">" color={colors.text} onPress={increase} />
         </View>
       </SafeAreaView>
     </>

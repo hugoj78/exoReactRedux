@@ -12,11 +12,13 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {incrementToken} from '../../actions/token';
 import {incrementUser} from '../../actions/user';
+import {useTheme} from '@react-navigation/native';
 
 const Login = ({navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const {colors} = useTheme();
 
   const dispatch = useDispatch();
 
@@ -65,18 +67,18 @@ const Login = ({navigation}) => {
               style={styles.background}
               imageStyle={styles.logo}
             />
-            <Text>Username :</Text>
+            <Text style={{color: colors.text}}>Username :</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, {color: colors.text}]}
               onChangeText={(username) =>
                 setFormState({...formState, username: username})
               }
               defaultValue={formState.username}
               placeholder="Username"
             />
-            <Text>Password :</Text>
+            <Text style={{color: colors.text}}>Password :</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, {color: colors.text}]}
               autoCompleteType="password"
               secureTextEntry={true}
               onChangeText={(password) =>
@@ -93,7 +95,7 @@ const Login = ({navigation}) => {
         </>
       ) : (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#53B7D2" />
         </View>
       )}
     </>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
   logo: {
-    opacity: 0.4,
+    // opacity: 0.4,
     overflow: 'visible',
     resizeMode: 'cover',
   },

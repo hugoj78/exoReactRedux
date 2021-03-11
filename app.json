@@ -1,4 +1,5 @@
 {
   "name": "AwesomeProject",
-  "displayName": "AwesomeProject"
+  "displayName": "AwesomeProject",
+  "ios": {"userInterfaceStyle": "automatic"}
 }
