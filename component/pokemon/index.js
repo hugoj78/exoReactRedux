@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {StyleSheet, ActivityIndicator, View} from 'react-native';
+import {StyleSheet, ActivityIndicator, View, Button} from 'react-native';
 
 import GetPokemon from './getPokemon';
 
@@ -22,19 +22,30 @@ const Character = ({navigation}) => {
       },
     })
       .then((res) => {
-        setPokemon(res.data.results);
-        setTotal(res.data.count);
-        setIsLoading(false);
+        setTimeout(() => {
+          setPokemon(res.data.results);
+          setTotal(res.data.count);
+          setIsLoading(false);
+        }, 500);
       })
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
+        setPokemon([]);
       });
   }, [offSet]);
 
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <>
-      {!isLoading ? (
+      {pokemon[0] ? (
         <GetPokemon
           pokemon={pokemon}
           offSet={offSet}
@@ -48,7 +59,7 @@ const Character = ({navigation}) => {
         />
       ) : (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <Button title="Retry" onPress={() => console.log('zizi')} />
         </View>
       )}
     </>

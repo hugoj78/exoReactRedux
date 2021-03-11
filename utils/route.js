@@ -9,6 +9,7 @@ const PrivateRoute = ({
   Pokemon,
   PokemonDetail,
   Profil,
+  Favoris,
 }) => {
   const tokenState = useSelector((state) => state.token.tokenValue);
 
@@ -45,7 +46,13 @@ const PrivateRoute = ({
                 {(props) => <PokemonDetail {...props} />}
               </Stack.Screen>
 
-              <Stack.Screen name="Profil">{() => <Profil />}</Stack.Screen>
+              <Stack.Screen name="Profil">
+                {(props) => <Profil {...props} />}
+              </Stack.Screen>
+
+              <Stack.Screen name="Favoris">
+                {(props) => <Favoris {...props} />}
+              </Stack.Screen>
             </>
           )}
         </Stack.Navigator>

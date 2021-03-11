@@ -6,6 +6,7 @@ import Login from '../../component/login';
 import Pokemon from '../../component/pokemon';
 import PokemonDetail from '../../component/pokemonDetail';
 import Profil from '../../component/profil';
+import Favoris from '../../component/favoris';
 
 import PrivateRoute from '../../utils/route';
 
@@ -21,6 +22,7 @@ const Route = () => {
         Pokemon={Pokemon}
         PokemonDetail={PokemonDetail}
         Profil={Profil}
+        Favoris={Favoris}
       />
     </>
   );

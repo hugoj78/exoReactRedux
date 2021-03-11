@@ -1,4 +1,4 @@
-import {ADD_FAVORIS, DELETE_FAVORIS, IS_FAVORIS} from '../actions/favoris';
+import {ADD_FAVORIS, DELETE_FAVORIS, RESET_FAVORIS} from '../actions/favoris';
 
 const initialState = {
   listFavoris: [],
@@ -13,6 +13,8 @@ export default (state = initialState, action) => {
         ...state,
         listFavoris: state.listFavoris.filter((fav) => fav !== action.value),
       };
+    case RESET_FAVORIS:
+      return {...state, listFavoris: []};
     default:
       return state;
   }
