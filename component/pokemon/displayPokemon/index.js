@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 
-const ShowAllCharacterDetail = ({pokemonDetail, navigation}) => {
+const DisplayPokemon = ({pokemonDetail, navigation}) => {
   const onPress = () => {
     navigation.push('Detail', {id: pokemonDetail.id});
   };
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShowAllCharacterDetail;
+export default DisplayPokemon;

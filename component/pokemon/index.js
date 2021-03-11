@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {StyleSheet, ActivityIndicator, View} from 'react-native';
 
-import ShowAllCharacter from './showAll';
+import GetPokemon from './getPokemon';
 
 const Character = ({navigation}) => {
   const [pokemon, setPokemon] = useState([]);
@@ -10,7 +10,7 @@ const Character = ({navigation}) => {
   const [offSet, setOffSet] = useState({number: 0, numPage: 1});
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const limit = 5;
+  const limit = 15;
 
   useEffect(() => {
     axios({
@@ -35,7 +35,7 @@ const Character = ({navigation}) => {
   return (
     <>
       {!isLoading ? (
-        <ShowAllCharacter
+        <GetPokemon
           pokemon={pokemon}
           offSet={offSet}
           setOffSet={setOffSet}

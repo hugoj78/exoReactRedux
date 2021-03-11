@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-import ShowAllCharacterDetail from '../showAllDetail';
+import DisplayPokemon from '../displayPokemon';
 
-const ShowAllCharacter = ({
+const GetPokemon = ({
   pokemon,
   offSet,
   setOffSet,
@@ -23,25 +23,26 @@ const ShowAllCharacter = ({
   navigation,
 }) => {
   useEffect(() => {
-    // console.log(pokemon);
     getPokemonDetail();
-    // console.log(pokemonDetail);
   }, [pokemon]);
 
-  const getPokemonDetail = () => {
-    pokemon.map((item) => {
-    //   console.log(item.name);
-      axios({
-        method: 'get',
-        url: item.url,
-      })
-        .then((data) => {
-          setPokemonDetail([...pokemonDetail, data.data]);
+  const getPokemonDetail = async () => {
+    const results = Promise.all(
+      pokemon.map((item) => {
+        return axios({
+          method: 'get',
+          url: item.url,
         })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+          .then((data) => {
+            return data.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }),
+    );
+    const result = await Promise.resolve(results);
+    setPokemonDetail(result);
   };
 
   const decrease = () => {
@@ -71,7 +72,7 @@ const ShowAllCharacter = ({
   const renderItem = ({item}) => {
     return (
       <>
-        <ShowAllCharacterDetail pokemonDetail={item} navigation={navigation} />
+        <DisplayPokemon pokemonDetail={item} navigation={navigation} />
       </>
     );
   };
@@ -113,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShowAllCharacter;
+export default GetPokemon;

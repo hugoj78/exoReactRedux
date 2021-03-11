@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import Header from '../header';
 
-const Login = ({isToken, setIsToken, MMKV, navigation}) => {
+const Login = ({setIsToken, navigation}) => {
   const [formState, setFormState] = useState({username: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,13 +36,15 @@ const Login = ({isToken, setIsToken, MMKV, navigation}) => {
       },
     })
       .then((res) => {
-        MMKV.setStringAsync('token', res.headers['x-access-token']);
         setIsToken(res.headers['x-access-token']);
         setIsLoading(false);
         navigation.push('Home');
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
+        setErrorMessage('Issues during login');
+        return;
       });
   };
 
@@ -54,7 +56,6 @@ const Login = ({isToken, setIsToken, MMKV, navigation}) => {
           <Text>Username :</Text>
           <TextInput
             style={styles.input}
-            // onChange={(e) => setFormState({...formState, username: e.target.value})}
             onChangeText={(username) =>
               setFormState({...formState, username: username})
             }

@@ -2,9 +2,9 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import CharacterShowDetail from './showDetail';
+import DisplayPokemonDetail from './displayPokemonDetail';
 
-const CharacterDetail = ({setIsToken, MMKV, route}) => {
+const PokemonDetail = ({setIsToken, route}) => {
   const [pokemon, setPokemon] = useState();
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const CharacterDetail = ({setIsToken, MMKV, route}) => {
 
   return (
     <>
-      <CharacterShowDetail pokemon={pokemon} />
+      <DisplayPokemonDetail pokemon={pokemon} />
     </>
   );
 };
 
-export default CharacterDetail;
+export default PokemonDetail;

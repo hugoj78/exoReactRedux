@@ -8,12 +8,16 @@
 
 import React from 'react';
 
-import Route from '../AwesomeProject/config/route';
+import Route from './config/route';
+import {Provider} from 'react-redux';
+import {store} from './config/store';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <Route />
+      <Provider store={store}>
+        <Route />
+      </Provider>
     </>
   );
 };

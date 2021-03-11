@@ -6,36 +6,26 @@ const PrivateRoute = ({
   Stack,
   isToken,
   setIsToken,
-  MMKV,
   Login,
-  Character,
-  CharacterDetail,
+  Pokemon,
+  PokemonDetail,
   Profil,
-  navigation,
 }) => {
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator>
           {!isToken ? (
-            <Stack.Screen
-              name="Login"
-              component={(props) => (
-                <Login
-                  {...props}
-                  isToken={isToken}
-                  setIsToken={setIsToken}
-                  MMKV={MMKV}
-                />
-              )}
-            />
+            <Stack.Screen name="Login">
+              {(props) => <Login {...props} setIsToken={setIsToken} />}
+            </Stack.Screen>
           ) : (
             <>
               <Stack.Screen
                 name="Home"
-                component={Character}
-                options={{
-                  title: 'Character',
+                component={Pokemon}
+                options={({navigation}) => ({
+                  title: 'Pokemon',
                   headerLeft: '',
                   headerRight: () => (
                     <Button
@@ -44,23 +34,21 @@ const PrivateRoute = ({
                       color="black"
                     />
                   ),
-                }}
+                })}
               />
               <Stack.Screen
                 name="Detail"
-                component={(props) => (
-                  <CharacterDetail
-                    setIsToken={setIsToken}
-                    MMKV={MMKV}
-                    {...props}
-                  />
-                )}
                 options={{
-                  title: 'Character Detail',
-                }}
-              />
+                  title: 'Pokemon Detail',
+                }}>
+                {(props) => (
+                  <PokemonDetail {...props} setIsToken={setIsToken} />
+                )}
+              </Stack.Screen>
 
-              <Stack.Screen name="Profil" component={Profil} />
+              <Stack.Screen name="Profil">
+                {() => <Profil setIsToken={setIsToken} />}
+              </Stack.Screen>
             </>
           )}
         </Stack.Navigator>
