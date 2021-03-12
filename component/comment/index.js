@@ -25,14 +25,16 @@ const GetComment = ({pokemon, colors}) => {
   );
 
   const addComm = () => {
-    const addcom = {
-      id: uuid(),
-      idPokemon: idPokemon,
-      idUser: idUser,
-      comment: newComment,
-    };
-    dispatch(addComment(addcom));
-    setNewComment('');
+    if (newComment.length !== 0) {
+      const addcom = {
+        id: uuid(),
+        idPokemon: idPokemon,
+        idUser: idUser,
+        comment: newComment,
+      };
+      dispatch(addComment(addcom));
+      setNewComment('');
+    }
   };
 
   const renderItem = ({item}) => {

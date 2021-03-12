@@ -17,12 +17,3 @@ export const deleteFavoris = (value) => ({
 export const resetFavoris = () => ({
   type: RESET_FAVORIS,
 });
-
-export const isFavoris = (value) => (dispatch) => {
-  const favoris = store.getState().favoris.listFavoris;
-  if (favoris) {
-    return favoris.includes(value);
-  } else {
-    return false;
-  }
-};
