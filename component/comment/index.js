@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -32,6 +32,7 @@ const GetComment = ({pokemon, colors}) => {
       comment: newComment,
     };
     dispatch(addComment(addcom));
+    setNewComment('');
   };
 
   const renderItem = ({item}) => {
@@ -57,9 +58,7 @@ const GetComment = ({pokemon, colors}) => {
         </TouchableOpacity>
         <FlatList
           data={comments}
-          contentContainerStyle={{
-            paddingBottom: 128,
-          }}
+          contentContainerStyle={styles.flatlist}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
         />
@@ -85,6 +84,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
     padding: 10,
     marginBottom: 10,
+  },
+  flatlist: {
+    paddingBottom: 128,
+    width: 300,
   },
 });
 

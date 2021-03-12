@@ -12,29 +12,29 @@ import {
 
 import GetComment from '../../comment';
 
-import {useDispatch} from 'react-redux';
-import {addFavoris, deleteFavoris, isFavoris} from '../../../actions/favoris';
+import {useDispatch, useSelector} from 'react-redux';
+import {addFavoris, deleteFavoris} from '../../../actions/favoris';
 
 const DisplayPokemonDetail = ({pokemon, colors}) => {
   const dispatch = useDispatch();
-  const [isEnabled, setIsEnabled] = useState();
 
   const toggleSwitch = () =>
     isEnabled && pokemon ? deleteFav(pokemon?.id) : addFav(pokemon?.id);
 
   const deleteFav = (id) => {
     dispatch(deleteFavoris(id));
-    setIsEnabled(false);
   };
 
   const addFav = (id) => {
     dispatch(addFavoris(id));
-    setIsEnabled(true);
   };
 
-  useEffect(() => {
-    setIsEnabled(dispatch(isFavoris(pokemon?.id)));
-  }, [dispatch, pokemon]);
+  const isEnabled = useSelector((state) =>
+    state.favoris.listFavoris.includes(pokemon?.id),
+  );
+
+  const [isShiny, setIsShiny] = useState(false);
+  const changeSwitch = () => setIsShiny((previousState) => !previousState);
 
   return (
     <>
@@ -43,13 +43,23 @@ const DisplayPokemonDetail = ({pokemon, colors}) => {
           <View style={styles.containerView}>
             {pokemon ? (
               <>
-                <Image
-                  source={{
-                    uri:
-                      pokemon.sprites.other['official-artwork'].front_default,
-                  }}
-                  style={styles.ImageIconStyle}
-                />
+                {!isShiny ? (
+                  <Image
+                    source={{
+                      uri:
+                        pokemon.sprites.other['official-artwork'].front_default,
+                    }}
+                    style={styles.ImageIconStyle}
+                  />
+                ) : (
+                  <Image
+                    source={{
+                      uri: pokemon.sprites.front_shiny,
+                    }}
+                    style={styles.ImageIconStyle}
+                  />
+                )}
+                <Switch onValueChange={changeSwitch} value={isShiny} />
                 <Text style={[styles.bigTitle, {color: colors.text}]}>
                   {pokemon.name}
                 </Text>
@@ -106,9 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: 20,
   },
-  containerComment: {
-
-  },
+  containerComment: {},
   textContainer: {
     alignItems: 'baseline',
   },
