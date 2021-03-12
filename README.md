@@ -25,6 +25,6 @@ Systèmes de favoris (redux)
 
 theme auto Default/Dark en changeant appearance dans les réglages iphones
 
-Ajout de commentaire avec son username 
+Ajout et suppression de commentaire avec son username 
 
 Visualisation de la version shiny du pokemon
