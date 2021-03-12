@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {addComment} from '../../actions/comment';
+import {addComment, deleteComment} from '../../actions/comment';
 import uuid from 'uuid';
 
 import DisplayComment from './displayComment';
@@ -38,7 +38,13 @@ const GetComment = ({pokemon, colors}) => {
   const renderItem = ({item}) => {
     return (
       <>
-        <DisplayComment comment={item} colors={colors} />
+        <DisplayComment
+          comment={item}
+          colors={colors}
+          dispatch={dispatch}
+          deleteComment={deleteComment}
+          idUser={idUser}
+        />
       </>
     );
   };
