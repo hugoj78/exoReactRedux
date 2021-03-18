@@ -8,6 +8,7 @@ import PokemonDetail from '../../component/pokemonDetail';
 import Profil from '../../component/profil';
 import Favoris from '../../component/favoris';
 import TodoList from '../../component/todoList';
+import Api from '../../component/api';
 
 import PrivateRoute from '../../utils/route';
 
@@ -25,6 +26,7 @@ const Route = (props) => {
         Profil={Profil}
         Favoris={Favoris}
         TodoList={TodoList}
+        Api={Api}
         {...props}
       />
     </>

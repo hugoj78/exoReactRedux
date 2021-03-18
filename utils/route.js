@@ -14,6 +14,7 @@ const PrivateRoute = ({
   Profil,
   Favoris,
   TodoList,
+  Api,
 }) => {
   const tokenState = useSelector((state) => state.token.tokenValue);
   const scheme = useColorScheme();
@@ -24,7 +25,19 @@ const PrivateRoute = ({
         <NavigationContainer
           theme={scheme === 'dark' ? CustomDarkTheme : DefaultTheme}>
           <Stack.Navigator>
-            <Stack.Screen name="TodoList" component={TodoList} />
+            <Stack.Screen
+              name="TodoList"
+              component={TodoList}
+              options={({navigation}) => ({
+                headerRight: () => (
+                  <Button
+                    onPress={() => navigation.navigate('API')}
+                    title="Api"
+                  />
+                ),
+              })}
+            />
+            <Stack.Screen name="API" component={Api} />
             {/* {!tokenState ? (
               <Stack.Screen name="Login">
                 {(props) => <Login {...props} />}

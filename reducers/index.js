@@ -4,6 +4,7 @@ import user from './user';
 import favoris from './favoris';
 import comment from './comment';
 import todo from './todo';
+import api from './api';
 
 export default combineReducers({
   token,
@@ -11,4 +12,5 @@ export default combineReducers({
   favoris,
   comment,
   todo,
+  api,
 });
