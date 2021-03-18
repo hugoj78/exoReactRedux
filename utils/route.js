@@ -13,6 +13,7 @@ const PrivateRoute = ({
   PokemonDetail,
   Profil,
   Favoris,
+  TodoList,
 }) => {
   const tokenState = useSelector((state) => state.token.tokenValue);
   const scheme = useColorScheme();
@@ -23,7 +24,8 @@ const PrivateRoute = ({
         <NavigationContainer
           theme={scheme === 'dark' ? CustomDarkTheme : DefaultTheme}>
           <Stack.Navigator>
-            {!tokenState ? (
+            <Stack.Screen name="TodoList" component={TodoList} />
+            {/* {!tokenState ? (
               <Stack.Screen name="Login">
                 {(props) => <Login {...props} />}
               </Stack.Screen>
@@ -50,7 +52,7 @@ const PrivateRoute = ({
 
                 <Stack.Screen name="Favoris" component={Favoris} />
               </>
-            )}
+            )} */}
           </Stack.Navigator>
         </NavigationContainer>
       </AppearanceProvider>
